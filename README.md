@@ -7,6 +7,22 @@ This app goals are:
 * to have writing/reading comment feature
 * to handle cloud photo service(e.g. Instagram) images
 
+## TODO
+### Basic
+- [ ] Router/Navigation
+- [ ] State Control
+- [ ] Data Store
+- [ ] File System
+- [ ] Network Communication
+
+### Features
+- [ ] Authentication
+- [ ] List
+- [ ] Page
+- [ ] Category(Album)
+- [ ] Tag
+- [ ] Comment
+
 ---
 
 ## Read about CRNA
