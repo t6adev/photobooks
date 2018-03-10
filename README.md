@@ -5,6 +5,7 @@ This app goals are:
 * to have album feature
 * to have tagging feature
 * to have writing/reading comment feature
+* to handle cloud photo service(e.g. Instagram) images
 
 ---
 
