@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Image, View } from 'react-native';
+import { Button, View } from 'react-native';
 import { ImagePicker } from 'expo';
 
 export default class ImagePickerComponent extends React.Component {
