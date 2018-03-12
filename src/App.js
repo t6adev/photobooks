@@ -1,13 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, Image, View } from 'react-native';
 import ImagePicker from './ImagePicker';
 
 export default class App extends React.Component {
+  state = {
+    pickedImageInfo: null,
+  };
   render() {
     return (
       <View style={styles.container}>
         <Text>app!</Text>
-        <ImagePicker />
+        <ImagePicker pickedUp={info => this.setState({ pickedImageInfo: info })}/>
+        {this.state.pickedImageInfo && <Image source={{ uri: this.state.pickedImageInfo.uri }} style={{ width: 200, height: 200 }} />}
       </View>
     );
   }
