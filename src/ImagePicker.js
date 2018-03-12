@@ -2,31 +2,25 @@ import React from 'react';
 import { Button, Image, View } from 'react-native';
 import { ImagePicker } from 'expo';
 
-export default class ImagePickerExample extends React.Component {
+export default class ImagePickerComponent extends React.Component {
   state = {
-    image: null,
+    pickedImageInfo: null,
   };
 
-  _pickImage = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      aspect: [4, 3],
-    });
-
-    console.log(result);
-
-    if (!result.cancelled) {
-      this.setState({ image: result.uri });
+  onPress = async () => {
+    const { cancelled, ...info } = await ImagePicker.launchImageLibraryAsync();
+    if (!cancelled) {
+      this.setState({ pickedImageInfo: info });
     }
   };
 
   render() {
-    const { image } = this.state;
+    const { pickedImageInfo } = this.state;
 
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Button title="Pick an image from camera roll" onPress={this._pickImage} />
-        {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+      <View>
+        <Button title="Pick an image from camera roll" onPress={this.onPress} />
+        {pickedImageInfo && <Image source={{ uri: pickedImageInfo.uri }} style={{ width: 200, height: 200 }} />}
       </View>
     );
   }
