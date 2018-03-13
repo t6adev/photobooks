@@ -11,7 +11,7 @@ This app goals are:
 ### Basic
 - [ ] Router/Navigation
 - [ ] State Control
-- [ ] Data Store
+- [ ] Data Store(we can use SecureStore for local store)
 - [ ] File System
 - [ ] Network Communication
 
