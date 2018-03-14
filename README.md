@@ -11,8 +11,9 @@ This app goals are:
 ### Basic
 - [ ] Router/Navigation
 - [ ] State Control
-- [ ] Data Store(we can use SecureStore for local store)
-- [ ] File System
+- [ ] Data Store
+  - [ ] local (we can use redux-persist as state too)
+  - [ ] File System
 - [ ] Network Communication
 
 ### Features

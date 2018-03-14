@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, View } from 'react-native';
-import { ImagePicker } from 'expo';
+import { ImagePicker } from 'expo'; // TODO: change react-native cameraroll
 
 export default class ImagePickerComponent extends React.Component {
   onPress = async () => {
