@@ -34,17 +34,15 @@ export default class LocalImageViewerComponent extends React.Component {
     const { images, colNum = 2 } = this.props;
     const rowNum = Math.ceil(images.length / colNum);
     const colArry = Array.from({ length: rowNum }, (v, k) => k).map(() => []);
-    console.log({ rowNum, colArry });
     const res = images.map(({ node }) => node).reduce(buildColums(colNum), colArry);
-    console.log(res);
     return (
       <View>
         <ScrollView>
           {images
             .map(({ node }) => node)
             .reduce(buildColums(colNum), colArry)
-            .map(cols => (
-              <View key={cols.length} style={styles.container}>
+            .map((cols, i) => (
+              <View key={i} style={styles.container}>
                 {cols.map(node => <ImageBox key={node.image.uri} node={node} />)}
               </View>
             ))}
