@@ -5,13 +5,6 @@ const styles = StyleSheet.create({
   row: {
     flex: 1,
     flexDirection: 'row',
-    // alignItems: 'stretch',
-    borderWidth: 1,
-  },
-  col: {
-    flex: 1,
-    flexDirection: 'column',
-    // borderWidth: 1,
   },
 });
 
@@ -43,12 +36,7 @@ export default class LocalImageViewerComponent extends React.Component {
     const res = images.map(({ node }) => node).reduce(buildColums(colNum), colArry);
     return (
       <View style={{ flex: 1 }}>
-        <ScrollView
-          contentContainerStyle={{
-            flex: 1,
-            flexDirection: 'column',
-          }}
-        >
+        <ScrollView>
           {res.map((cols, i) => (
             <View key={`image-viewer-row-${i}`} style={styles.row}>
               {cols.map(node => (

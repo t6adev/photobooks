@@ -4,14 +4,8 @@ import { TabNavigator } from 'react-navigation';
 import LocalImagePicker from './LocalImagePicker';
 import LocalImageViewer from './LocalImageViewer';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
-
 const HomeScreen = () => (
-  <View style={styles.container}>
+  <View style={{ flex: 1 }}>
     <Text>Home!</Text>
   </View>
 );
@@ -22,7 +16,7 @@ class ImagesScreen extends React.Component {
   };
   render() {
     return (
-      <View style={styles.container}>
+      <View style={{ flex: 1 }}>
         <LocalImagePicker onClick={info => this.setState({ imageRoll: { ...info } })}/>
         <LocalImageViewer images={this.state.imageRoll.images} />
       </View>
