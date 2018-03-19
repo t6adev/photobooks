@@ -7,9 +7,6 @@ import LocalImageViewer from './LocalImageViewer';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
 
@@ -27,9 +24,7 @@ class ImagesScreen extends React.Component {
     return (
       <View style={styles.container}>
         <LocalImagePicker onClick={info => this.setState({ imageRoll: { ...info } })}/>
-        <ScrollView>
-          <LocalImageViewer images={this.state.imageRoll.images} />
-        </ScrollView>
+        <LocalImageViewer images={this.state.imageRoll.images} />
       </View>
     );
   }

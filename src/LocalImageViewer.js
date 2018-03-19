@@ -2,10 +2,16 @@ import React from 'react';
 import { StyleSheet, View, ScrollView, Image, TouchableOpacity, FlatList } from 'react-native';
 
 const styles = StyleSheet.create({
-  container: {
+  row: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: 'row',
+    // alignItems: 'stretch',
+    borderWidth: 1,
+  },
+  col: {
+    flex: 1,
+    flexDirection: 'column',
+    // borderWidth: 1,
   },
 });
 
@@ -36,16 +42,20 @@ export default class LocalImageViewerComponent extends React.Component {
     const colArry = Array.from({ length: rowNum }, (v, k) => k).map(() => []);
     const res = images.map(({ node }) => node).reduce(buildColums(colNum), colArry);
     return (
-      <View>
-        <ScrollView>
-          {images
-            .map(({ node }) => node)
-            .reduce(buildColums(colNum), colArry)
-            .map((cols, i) => (
-              <View key={i} style={styles.container}>
-                {cols.map(node => <ImageBox key={node.image.uri} node={node} />)}
-              </View>
-            ))}
+      <View style={{ flex: 1 }}>
+        <ScrollView
+          contentContainerStyle={{
+            flex: 1,
+            flexDirection: 'column',
+          }}
+        >
+          {res.map((cols, i) => (
+            <View key={`image-viewer-row-${i}`} style={styles.row}>
+              {cols.map(node => (
+                <View key={node.image.uri}><ImageBox node={node} /></View>
+              ))}
+            </View>
+          ))}
         </ScrollView>
       </View>
     );
