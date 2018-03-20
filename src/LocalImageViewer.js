@@ -1,19 +1,12 @@
 import React from 'react';
-import { StyleSheet, View, ScrollView, Image, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, View, ScrollView, Image, TouchableOpacity, Dimensions } from 'react-native';
 
-const styles = StyleSheet.create({
-  row: {
-    flex: 1,
-    flexDirection: 'row',
-  },
-});
-
-const ImageBox = ({ node }) => (
-  <TouchableOpacity key={node.image.uri} onPress={() => this.onPress(node)}>
+const ImageBox = ({ node, width = 100 }) => (
+  <TouchableOpacity onPress={() => this.onPress(node)}>
     <Image
       style={{
-        width: 100,
-        height: 100,
+        width: width,
+        height: width
       }}
       source={{ uri: node.image.uri }}
     />
@@ -34,13 +27,24 @@ export default class LocalImageViewerComponent extends React.Component {
     const rowNum = Math.ceil(images.length / colNum);
     const colArry = Array.from({ length: rowNum }, (v, k) => k).map(() => []);
     const res = images.map(({ node }) => node).reduce(buildColums(colNum), colArry);
+    const fullWidth = Dimensions.get('window').width;
+    const oneWidth = fullWidth / colNum;
     return (
       <View style={{ flex: 1 }}>
         <ScrollView>
           {res.map((cols, i) => (
-            <View key={`image-viewer-row-${i}`} style={styles.row}>
+            <View
+              key={`image-viewer-row-${i}`}
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'stretch',
+              }}>
               {cols.map(node => (
-                <View key={node.image.uri}><ImageBox node={node} /></View>
+                <View key={node.image.uri}>
+                  <ImageBox node={node} width={oneWidth} />
+                </View>
               ))}
             </View>
           ))}
