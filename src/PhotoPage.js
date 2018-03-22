@@ -1,8 +1,28 @@
 import React from 'react';
-import { View, TextInput } from 'react-native';
+import { View, Button, Text, TextInput } from 'react-native';
+
+const commentBtnTitle = ['Edit', 'Complete'];
 
 export default class PhotoPageComponent extends React.Component {
-  state = { text: 'Placeholder' };
+  state = {
+    commentText: '(Placeholder)',
+    editting: false,
+    editCommentBtnTitle: commentBtnTitle[0],
+  };
+  onPressEditCommentBtn = () => {
+    const { editting } = this.state;
+    if (editting) {
+      this.setState({
+        editting: false,
+        editCommentBtnTitle: commentBtnTitle[0],
+      });
+    } else {
+      this.setState({
+        editting: true,
+        editCommentBtnTitle: commentBtnTitle[1],
+      });
+    }
+  };
   render() {
     // TODO: Image Area, Text Area, Tagging, Category
     return (
@@ -16,11 +36,16 @@ export default class PhotoPageComponent extends React.Component {
             height: 100,
           }}
         />
-        <TextInput
-          style={{ flex: 1, height: 40 }}
-          onChangeText={text => this.setState({ text })}
-          value={this.state.text}
-        />
+        {this.state.editting ? (
+          <TextInput
+            style={{ flex: 1, height: 40 }}
+            onChangeText={commentText => this.setState({ commentText })}
+            value={this.state.commentText}
+          />
+        ) : (
+          <Text>{this.state.commentText}</Text>
+        )}
+        <Button title={this.state.editCommentBtnTitle} onPress={this.onPressEditCommentBtn} />
       </View>
     );
   }
