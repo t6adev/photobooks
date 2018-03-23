@@ -8,6 +8,8 @@ export default class PhotoPageComponent extends React.Component {
     commentText: '(Placeholder)',
     editting: false,
     editCommentBtnTitle: commentBtnTitle[0],
+    category: 'default',
+    tags: [],
   };
   onPressEditCommentBtn = () => {
     const { editting } = this.state;
@@ -36,6 +38,8 @@ export default class PhotoPageComponent extends React.Component {
             height: 100,
           }}
         />
+        <View>{this.state.tags.map(tag => <Text>#{tag}</Text>).join(' ')}</View>
+        <View><Text>Category: {this.state.category}</Text>></View>
         {this.state.editting ? (
           <TextInput
             style={{ flex: 1, height: 40 }}
