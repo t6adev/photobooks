@@ -39,7 +39,7 @@ export default class PhotoPageComponent extends React.Component {
           }}
         />
         <View>{this.state.tags.map(tag => <Text>#{tag}</Text>).join(' ')}</View>
-        <View><Text>Category: {this.state.category}</Text>></View>
+        <View><Text>Category: {this.state.category}</Text></View>
         {this.state.editting ? (
           <TextInput
             style={{ flex: 1, height: 40 }}
