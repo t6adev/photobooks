@@ -6,6 +6,7 @@ export default class LocalImagePickerComponent extends React.Component {
     const { edges: images, page_info: pageInfo } = await CameraRoll.getPhotos({
       first: 20,
       assetType: 'Photos',
+      groupTypes: 'SavedPhotos',
     });
     console.log(pageInfo);
     if (images) {
