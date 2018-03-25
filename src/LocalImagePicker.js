@@ -2,14 +2,19 @@ import React from 'react';
 import { Button, View, CameraRoll } from 'react-native';
 
 export default class LocalImagePickerComponent extends React.Component {
+  state = {
+    endCursor: '',
+  };
   onPress = async () => {
     const { edges: images, page_info: pageInfo } = await CameraRoll.getPhotos({
       first: 20,
+      after: this.state.endCursor,
       assetType: 'Photos',
-      groupTypes: 'SavedPhotos',
+      // groupName: 'LINE', TODO: implement setting it feature
     });
-    console.log(pageInfo);
+    console.log({images,pageInfo});
     if (images) {
+      this.setState({ endCursor: pageInfo.end_cursor });
       this.props.onClick({ images, pageInfo });
     }
   };
