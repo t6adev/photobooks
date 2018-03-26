@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, ScrollView, Image, TouchableOpacity, Dimensions } from 'react-native';
 
-const ImageBox = ({ node, width = 100 }) => (
-  <TouchableOpacity onPress={() => this.onPress(node)}>
+const ImageBox = ({ node, width = 100, onPress }) => (
+  <TouchableOpacity onPress={onPress}>
     <Image
       style={{
         width: width,
@@ -21,6 +21,7 @@ const buildColums = colNum => (cols, item, index) => {
 export default class LocalImageViewerComponent extends React.Component {
   onPress = node => {
     console.log(node);
+    // TODO: when clicking a node, show checked view over the image and save the checked
   };
   render() {
     const { images, colNum = 2 } = this.props;
@@ -43,7 +44,7 @@ export default class LocalImageViewerComponent extends React.Component {
               }}>
               {cols.map(node => (
                 <View key={node.image.uri}>
-                  <ImageBox node={node} width={oneWidth} />
+                  <ImageBox node={node} width={oneWidth} onPress={() => this.onPress(node)} />
                 </View>
               ))}
             </View>
