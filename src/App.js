@@ -10,7 +10,7 @@ const HomeScreen = () => (
   </View>
 );
 
-class ImagesScreen extends React.Component {
+class LocalImagesScreen extends React.Component {
   state = {
     imageRoll: { images: [], pageInfo: null },
   };
@@ -24,7 +24,19 @@ class ImagesScreen extends React.Component {
   }
 }
 
+class AlbumScreen extends React.Component {
+  state = {};
+  render() {
+    return (
+      <View style={{ flex: 1 }}>
+        <Text>Albums</Text>
+      </View>
+    );
+  }
+}
+
 export default TabNavigator({
   Home: { screen: HomeScreen },
-  Images: { screen: ImagesScreen },
+  LocalImages: { screen: LocalImagesScreen },
+  Albums: { screen: AlbumScreen },
 });
