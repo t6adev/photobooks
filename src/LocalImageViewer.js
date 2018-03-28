@@ -1,15 +1,42 @@
 import React from 'react';
-import { StyleSheet, View, ScrollView, Image, TouchableOpacity, Dimensions } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
+
+const CheckedStatusView = ({ show }) => (
+  <View>
+    {show ? (
+      <View
+        style={{
+          position: 'absolute',
+          width: 20,
+          height: 20,
+          borderRadius: 20 / 2,
+          top: 15,
+          left: 15,
+          backgroundColor: 'lightgreen',
+        }}
+      >
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <View>
+            <Text style={{ color: 'white' }}>✔</Text>
+          </View>
+        </View>
+      </View>
+    ) : null}
+  </View>
+);
 
 const ImageBox = ({ node, width = 100, onPress }) => (
   <TouchableOpacity onPress={onPress}>
-    <Image
-      style={{
-        width: width,
-        height: width
-      }}
-      source={{ uri: node.image.uri }}
-    />
+    <Image style={{ width, height: width }} source={{ uri: node.image.uri }} />
+    <CheckedStatusView />
   </TouchableOpacity>
 );
 
@@ -41,7 +68,8 @@ export default class LocalImageViewerComponent extends React.Component {
                 flexDirection: 'row',
                 justifyContent: 'center',
                 alignItems: 'stretch',
-              }}>
+              }}
+            >
               {cols.map(node => (
                 <View key={node.image.uri}>
                   <ImageBox node={node} width={oneWidth} onPress={() => this.onPress(node)} />
