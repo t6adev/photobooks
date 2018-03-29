@@ -12,13 +12,14 @@ const HomeScreen = () => (
 
 class LocalImagesScreen extends React.Component {
   state = {
-    imageRoll: { images: [], pageInfo: null },
+    loadedImages: [],
+    checkedImages: [],
   };
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <LocalImagePicker onClick={info => this.setState({ imageRoll: { ...info } })}/>
-        <LocalImageViewer images={this.state.imageRoll.images} />
+        <LocalImagePicker onClick={info => this.setState({ loadedImages: info.images })}/>
+        <LocalImageViewer loadedImages={this.state.loadedImages} checkedImages={this.state.checkedImages} />
       </View>
     );
   }
