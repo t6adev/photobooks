@@ -33,10 +33,10 @@ const CheckedStatusView = ({ show }) => (
   </View>
 );
 
-const ImageBox = ({ node, width = 100, onPress }) => (
+const ImageBox = ({ node, width = 100, onPress, checked }) => (
   <TouchableOpacity onPress={onPress}>
     <Image style={{ width, height: width }} source={{ uri: node.image.uri }} />
-    <CheckedStatusView />
+    <CheckedStatusView show={checked} />
   </TouchableOpacity>
 );
 
@@ -46,13 +46,30 @@ const buildColums = colNum => (cols, item, index) => {
 };
 
 export default class LocalImageViewerComponent extends React.Component {
+  state = {
+    localCheckeds: this.props.loadedImages.map(i => ({ ...i, checked: false })),
+  };
   onPress = node => {
     console.log(node);
     // TODO: when clicking a node, show checked view over the image and save the checked
-    const { checkedImages } = this.props;
-    if (!checkedImages.find(({ image }) => image.uri === node.image.uri)) {
-      checkedImages.push(node);
-    }
+    this.setState({
+      localCheckeds: this.state.localCheckeds.map(old => {
+        if (old.image.uri === node.image.uri) {
+          if (old.checked) {
+            this.props.checkedImages.push(node);
+          } else {
+            this.props.checkedImages = this.props.checkedImages.filter(
+              i => i.image.uri !== node.image.uri
+            );
+          }
+          return {
+            ...old,
+            checked: !old.checked,
+          };
+        }
+        return old;
+      }),
+    });
   };
   render() {
     const { loadedImages, colNum = 2 } = this.props;
@@ -74,9 +91,14 @@ export default class LocalImageViewerComponent extends React.Component {
                 alignItems: 'stretch',
               }}
             >
-              {cols.map(node => (
+              {cols.map((node, index) => (
                 <View key={node.image.uri}>
-                  <ImageBox node={node} width={oneWidth} onPress={() => this.onPress(node)} />
+                  <ImageBox
+                    node={node}
+                    width={oneWidth}
+                    onPress={() => this.onPress(node)}
+                    checked={this.state.localCheckeds[index].checked}
+                  />
                 </View>
               ))}
             </View>

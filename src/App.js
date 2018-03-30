@@ -18,7 +18,7 @@ class LocalImagesScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <LocalImagePicker onClick={info => this.setState({ loadedImages: info.images })}/>
+        <LocalImagePicker onClick={info => this.setState({ loadedImages: info.images, checkedImages: [...this.state.checkedImages, info.images] })}/>
         <LocalImageViewer loadedImages={this.state.loadedImages} checkedImages={this.state.checkedImages} />
       </View>
     );
