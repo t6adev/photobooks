@@ -47,14 +47,19 @@ const buildColums = colNum => (cols, item, index) => {
 
 export default class LocalImageViewerComponent extends React.Component {
   state = {
-    localCheckeds: this.props.loadedImages.map(i => ({ ...i, checked: false })),
+    localCheckeds: [],
   };
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      localCheckeds: nextProps.loadedImages.map(i => ({ ...i, checked: false })),
+    });
+  }
   onPress = node => {
     console.log(node);
     // TODO: when clicking a node, show checked view over the image and save the checked
     this.setState({
       localCheckeds: this.state.localCheckeds.map(old => {
-        if (old.image.uri === node.image.uri) {
+        if (old.node.image.uri === node.image.uri) {
           if (old.checked) {
             this.props.checkedImages.push(node);
           } else {
@@ -78,6 +83,7 @@ export default class LocalImageViewerComponent extends React.Component {
     const res = loadedImages.map(({ node }) => node).reduce(buildColums(colNum), colArry);
     const fullWidth = Dimensions.get('window').width;
     const oneWidth = fullWidth / colNum;
+    let counter = 0;
     return (
       <View style={{ flex: 1 }}>
         <ScrollView>
@@ -97,7 +103,7 @@ export default class LocalImageViewerComponent extends React.Component {
                     node={node}
                     width={oneWidth}
                     onPress={() => this.onPress(node)}
-                    checked={this.state.localCheckeds[index].checked}
+                    checked={this.state.localCheckeds[counter++].checked}
                   />
                 </View>
               ))}

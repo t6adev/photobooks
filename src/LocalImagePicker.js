@@ -12,7 +12,6 @@ export default class LocalImagePickerComponent extends React.Component {
       assetType: 'Photos',
       // groupName: 'LINE', TODO: implement setting it feature
     });
-    console.log({images,pageInfo});
     if (images) {
       this.setState({ endCursor: pageInfo.end_cursor });
       this.props.onClick({ images, pageInfo });
