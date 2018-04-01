@@ -10,35 +10,54 @@ import {
 } from 'react-native';
 
 const CheckedStatusView = ({ show }) => (
-  <View>
+  <View
+    style={
+      (show && {
+        position: 'absolute',
+        width: 20,
+        height: 20,
+        borderRadius: 20 / 2,
+        top: 15,
+        left: 15,
+        backgroundColor: 'lightgreen',
+      }) ||
+      {}
+    }
+  >
     {show ? (
-      <View
-        style={{
-          position: 'absolute',
-          width: 20,
-          height: 20,
-          borderRadius: 20 / 2,
-          top: 15,
-          left: 15,
-          backgroundColor: 'lightgreen',
-        }}
-      >
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <View>
-            <Text style={{ color: 'white' }}>✔</Text>
-          </View>
+      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <View>
+          <Text style={{ color: 'white' }}>✔</Text>
         </View>
       </View>
     ) : null}
   </View>
 );
 
-const ImageBox = ({ node, width = 100, onPress, checked }) => (
-  <TouchableOpacity onPress={onPress}>
-    <Image style={{ width, height: width }} source={{ uri: node.image.uri }} />
-    <CheckedStatusView show={checked} />
-  </TouchableOpacity>
-);
+class ImageBox extends React.Component {
+  state = {
+    checked: false,
+  };
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      checked: nextProps.checked,
+    });
+  }
+  render() {
+    const { node, width = 100, onPress } = this.props;
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          this.setState({ checked: !this.state.checked });
+          onPress(node);
+        }}
+      >
+        <Image style={{ width, height: width }} source={{ uri: node.image.uri }} />
+        <CheckedStatusView show={this.state.checked} />
+      </TouchableOpacity>
+    );
+  }
+}
 
 const buildColums = colNum => (cols, item, index) => {
   cols[Math.ceil((index + 1) / colNum) - 1].push(item);
@@ -64,7 +83,7 @@ export default class LocalImageViewerComponent extends React.Component {
             this.props.checkedImages.push(node);
           } else {
             this.props.checkedImages = this.props.checkedImages.filter(
-              i => i.image.uri !== node.image.uri
+              i => i.node.image.uri !== node.image.uri
             );
           }
           return {
