@@ -74,18 +74,9 @@ export default class LocalImageViewerComponent extends React.Component {
     });
   }
   onPress = node => {
-    console.log(node);
-    // TODO: when clicking a node, show checked view over the image and save the checked
     this.setState({
       localCheckeds: this.state.localCheckeds.map(old => {
         if (old.node.image.uri === node.image.uri) {
-          if (old.checked) {
-            this.props.checkedImages.push(node);
-          } else {
-            this.props.checkedImages = this.props.checkedImages.filter(
-              i => i.node.image.uri !== node.image.uri
-            );
-          }
           return {
             ...old,
             checked: !old.checked,
