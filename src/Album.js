@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
+import PhotoPage from './PhotoPage';
 
 export default class AlbumComponent extends React.Component {
   render() {
@@ -10,7 +11,11 @@ export default class AlbumComponent extends React.Component {
         <Text>{title}</Text>
         <Text>{tags.map(tag => `#${tag}`).join(' ')}</Text>
         <Text>{description}</Text>
-        {/* <View>{photos}</View> */}
+        <View>{photos.map(photo => (
+          <View>
+            <Image source={{ uri: photo.uri }} />
+          </View>
+        ))}</View>
       </View>
     );
   }
