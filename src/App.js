@@ -3,6 +3,7 @@ import { StyleSheet, Text, Image, View, ScrollView } from 'react-native';
 import { TabNavigator } from 'react-navigation';
 import LocalImagePicker from './LocalImagePicker';
 import LocalImageViewer from './LocalImageViewer';
+import AddButton from './AddButton';
 
 const HomeScreen = () => (
   <View style={{ flex: 1 }}>
@@ -18,8 +19,26 @@ class LocalImagesScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <LocalImagePicker onClick={info => this.setState({ loadedImages: info.images, checkedImages: [...this.state.checkedImages, ...info.images] })}/>
-        <LocalImageViewer loadedImages={this.state.loadedImages} checkedImages={this.state.checkedImages} />
+        <AddButton
+          style={{
+            position: 'absolute',
+            bottom: 15,
+            right: 15,
+          }}
+          onPress={() => ()}
+        />
+        <LocalImagePicker
+          onClick={info =>
+            this.setState({
+              loadedImages: info.images,
+              checkedImages: [...this.state.checkedImages, ...info.images],
+            })
+          }
+        />
+        <LocalImageViewer
+          loadedImages={this.state.loadedImages}
+          checkedImages={this.state.checkedImages}
+        />
       </View>
     );
   }
