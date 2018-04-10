@@ -4,13 +4,13 @@ import PhotoPage from './PhotoPage';
 
 export default class AlbumComponent extends React.Component {
   render() {
-    const { info, editing } = this.props;
+    const { info, editing, onChangeText } = this.props;
     const { title, tags, description, photos } = info;
     return (
       <View>
         {editing ? (
           <TextInput
-            onChangeText={() => {}}
+            onChangeText={text => onChangeText(text, 'title')}
             // value={}
           />
         ) : (
@@ -18,7 +18,7 @@ export default class AlbumComponent extends React.Component {
         )}
         {editing ? (
           <TextInput
-            onChangeText={() => {}}
+            onChangeText={text => onChangeText(text, 'tags')}
             // value={}
           />
         ) : (
@@ -28,7 +28,7 @@ export default class AlbumComponent extends React.Component {
           <TextInput
             multiline={true}
             numberOfLines={4}
-            onChangeText={() => {}}
+            onChangeText={text => onChangeText(text, 'description')}
             // value={}
             editable={true}
           />
