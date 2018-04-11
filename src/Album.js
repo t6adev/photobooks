@@ -3,6 +3,11 @@ import { View, Text, Image, TextInput } from 'react-native';
 import PhotoPage from './PhotoPage';
 
 export default class AlbumComponent extends React.Component {
+  state = {
+    title: '',
+    tags: '',
+    description: '',
+  };
   render() {
     const { info, editing, onChangeText } = this.props;
     const { title, tags, description, photos } = info;
@@ -10,16 +15,22 @@ export default class AlbumComponent extends React.Component {
       <View>
         {editing ? (
           <TextInput
-            onChangeText={text => onChangeText(text, 'title')}
-            // value={}
+            onChangeText={text => {
+              onChangeText(text, 'title');
+              this.setState({ title: text });
+            }}
+            value={this.state.title}
           />
         ) : (
           <Text>{title}</Text>
         )}
         {editing ? (
           <TextInput
-            onChangeText={text => onChangeText(text, 'tags')}
-            // value={}
+            onChangeText={text => {
+              onChangeText(text, 'tags');
+              this.setState({ tags: text });
+            }}
+            value={this.state.tags}
           />
         ) : (
           <Text>{tags.map(tag => `#${tag}`).join(' ')}</Text>
@@ -28,8 +39,11 @@ export default class AlbumComponent extends React.Component {
           <TextInput
             multiline={true}
             numberOfLines={4}
-            onChangeText={text => onChangeText(text, 'description')}
-            // value={}
+            onChangeText={text => {
+              onChangeText(text, 'description');
+              this.setState({ title: text });
+            }}
+            value={this.state.description}
             editable={true}
           />
         ) : (
