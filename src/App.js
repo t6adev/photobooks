@@ -4,6 +4,7 @@ import { TabNavigator } from 'react-navigation';
 import LocalImagePicker from './LocalImagePicker';
 import LocalImageViewer from './LocalImageViewer';
 import AddButton from './AddButton';
+import Albums from './Albums';
 
 const HomeScreen = () => (
   <View style={{ flex: 1 }}>
@@ -49,7 +50,7 @@ class AlbumScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <Text>Albums</Text>
+        <Albums albums={} />
       </View>
     );
   }
